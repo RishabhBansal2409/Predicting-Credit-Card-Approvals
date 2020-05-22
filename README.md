@@ -1,4 +1,4 @@
-## Predictiing Credit Card Application Approval
+## Predicting Credit Card Application Approval
 
 ![](/images/Credit_Card.png)
 
