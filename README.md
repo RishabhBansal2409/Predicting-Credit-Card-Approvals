@@ -2,12 +2,12 @@
 
 ![](/images/Credit_Card.png)
 
-Built a **supervised Logistic Regression classifier** which predicts **whether a Credit Card application will get approved or not** after taking into account the below features :
+Built a **Logistic Regression classifier** which predicts **whether a Credit Card application will get approved or not** after taking into account the below features :
 * Gender 
 * Age   
 * Debt  
 * Married   
-* BankCustom: 
+* BankCustomer 
 * EducationLevel  
 * Ethinicity
 * YearsEmployed 
