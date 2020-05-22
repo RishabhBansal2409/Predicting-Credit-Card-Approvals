@@ -1,0 +1,109 @@
+The structure of this notebook is as follows:
+
+First, we will start off by loading and viewing the dataset.
+We will see that the dataset has a mixture of both numerical and non-numerical features, that it contains values from different ranges, plus that it contains a number of missing entries.
+We will have to preprocess the dataset to ensure the machine learning model we choose can make good predictions.
+After our data is in good shape, we will do some exploratory data analysis to build our intuitions.
+Finally, we will build a machine learning model that can predict if an individual's application for a credit card will be accepted.
+
+1.Importing Libraries and loading data
+
+import pandas as pd
+pd.read_csv(<file path> , header = ..... , names = <list of column names> , sep = ',')
+df.head()
+df.tail()
+
+2.Inspecting the dataset
+
+df.shape
+df.describe()
+df.info()
+df.columns
+df.dtypes
+
+Issues Observed :- 
+a) Dataset contains numeric and non-numeric columns. (From Info function)
+b) Datasets' numeric features have different ranges. (From Describe function)
+c) Missing values are labeled with ? (From head and tail functions)
+
+3.Handling the missing values 
+
+a) Replace the missing values labeled with ? with NaN 
+   
+df.replace('?' , np.NaN)
+
+Note :- Check which columns contain more missing values using heatmap
+sns.heatmap(df.isnull() , yticklabels=False , cbar=False)
+
+b) Mean Imputation for the numerical variables 
+ 
+df.fillna(cc_df.mean(), inplace=True)
+
+Check no missing value is there in the numerical columns 
+
+df.isnull().sum()
+
+c) Impute missing values in non-numeric columns with the most frequent values as present in the respective columns.
+
+Using for loop iterate over all the columns , now using if condtion for object data type fill the value with mode.
+
+df.fillna(df[col].mode().values[0] , inplace = True)
+
+Check if no missing value exist in any of the columns.
+
+4.Convert the Non-Numeric data into Numeric using Label Encoder.
+
+from sklearn.preprocessing import LabelEncoder
+le = LabelEncoder()
+le.fit_transform(<column name(s)>)
+
+5.Check if the data is balanced or imbalanced by comparing the no of approved and not approved applications.
+If the difference between them > 90% or thereabouts , then possiblity of imbalanced data cannot be ruled out.
+
+6.Dropping the columns such as DriversLicense and ZipCode based on domain knowledge.This is known as Feature Selection.
+
+df.drop(['DriversLicense', 'Zipcode'], axis=1 , inplace = True)
+
+7.Splitting the data into training and testing set for two different phases of machine learning modeling: training and testing.
+
+from sklearn.model_selection import train_test_split
+X,y = df.iloc[:,0:len(df.columns)-1] , df.iloc[:,len(df.columns)-1]
+X_train, X_test, y_train,y_test = train_test_split(X,y,test_size=0.33,random_state=42)
+
+8.Scaling the data to the range of 0-1
+
+from sklearn.preprocessing import MinMaxScaler
+scaler = MinMaxScaler(feature_range=(0,1))
+rescaledX_train = scaler.fit_transform(X_train)
+rescaledX_test = scaler.fit_transform(X_test)
+
+9.Fitting a logistic Regression to the training set
+
+from sklearn.linear_model import LogisticRegression
+logreg = LogisticRegression(solver = 'liblinear')
+logreg.fit(rescaledX_train , y_train)
+
+10.Making predictions and evaluating performance
+
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score
+
+y_pred = logreg.predict(rescaledX_test)
+accuracy_score(y_test,y_pred))
+confusion_matrix(y_test,y_pred)
+
+11.Grid searching and making the model perform better
+
+Define the grid of values for tol and max_iter
+
+from sklearn.model_selection import GridSearchCV
+tol = [0.01,0.001,0.0001]
+max_iter = [100,150,200]
+param_grid = dict({'tol' : tol , 'max_iter' : max_iter})
+
+12.Finding the best performing model
+
+grid_model = GridSearchCV(estimator = logreg , param_grid = param_grid , cv = 5)
+grid_model_result = grid_model.fit(scaler.fit_transform(X), y)
+best_score, best_params = grid_model_result.best_score_ , grid_model_result.best_params_
+
