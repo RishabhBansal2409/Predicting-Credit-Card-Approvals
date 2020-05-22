@@ -1,3 +1,7 @@
+## Predictiing Credit Card Application Approval
+
+![](/images/Credit_Card.png)
+
 Built a **supervised Machine Learning classifier** which predicts **whether a Credit Card application will get approved or not** taking into account the below features :
 * Gender 
 * Age   
@@ -20,14 +24,14 @@ Below are the set of steps executed in order to build the Credit Card applicatio
 1. **Importing Libraries and loading data**.
 
 2. **Exploratory data Analysis (EDA)** to know the issues in the dataset beforehand.Issue observed are as follows:
-    * Dataset contains **numeric and non-numeric columns**.
-    * Datasets' **numeric features have different ranges**.
-    * **Detection of missing values** which are labeled as ?.
+    + Dataset contains **numeric and non-numeric columns**.
+    + Datasets' **numeric features have different ranges**.
+    + **Detection of missing values** which are labeled as ?.
     
 3. **Handling of the missing values** by following the below approaches.
-    * Replace the missing values **labeled with ? with NaN**.
-    * **Mean Imputation** for the numerical variables
-    * Impute missing values in **non-numeric columns** with the **most frequent values** as present in the respective columns.
+    - Replace the missing values **labeled with ? with NaN**.
+    - **Mean Imputation** for the numerical variables
+    - Impute missing values in **non-numeric columns** with the **most frequent values** as present in the respective columns.
 
 4. Converting the **Non-Numeric data into Numeric using Label Encoder**.
    
