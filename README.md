@@ -1,8 +1,8 @@
-## Predicting Credit Card Application Approval
+## Predicting Credit Card Application Approval 
 
 ![](/images/Credit_Card.png)
 
-Built a **supervised Machine Learning classifier** which predicts **whether a Credit Card application will get approved or not** taking into account the below features :
+Built a **supervised Logistic Regression classifier** which predicts **whether a Credit Card application will get approved or not** after taking into account the below features :
 * Gender 
 * Age   
 * Debt  
@@ -50,3 +50,5 @@ Below are the set of steps executed in order to build the Credit Card applicatio
 11. **Grid searching** and making the model perform better.
 
 12. **Finding the best performing model**.
+
+My Logistic Regression model got an **accuracy of 85.36** after using the Grid Cross validation method.   
